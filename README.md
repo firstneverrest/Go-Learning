@@ -30,12 +30,26 @@ func main() {
 
 ```
 go run .\main.go
+
+or
+
+go run main.go
 ```
 
 7. If you want to save the program as an executable program, type as follow:
 
 ```
 go build .\main.go
+
+or
+
+go build main.go
+```
+
+8. Run .exe file
+
+```
+./main.exe
 ```
 
 ## Basic Syntax
@@ -208,4 +222,44 @@ func main() {
 	fmt.Printf("mySlice2 = %v\n", mySlice2)
 	fmt.Printf("mySlice3 = %v\n", mySlice3)
 }
+```
+
+## Function
+
+Create function like `func main() {}`
+
+```go
+// function.go
+package main
+
+func getAnimals() []string {
+	var animals = []string{"elephant", "weaver"}
+	return animals
+}
+```
+
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(getAnimals())
+}
+
+```
+
+When you would like to separate function into multiple files, you could not refer to function name and use it directly. It requires run all .go files that include function like below.
+
+```
+go run *.go
+```
+
+## Struct
+
+A struct is used to create a collection of members of different data types, into a single variable.
+
+```go
+
 ```
