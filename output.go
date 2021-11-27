@@ -20,4 +20,8 @@ func main() {
 	fmt.Printf("I'm %v and I'm %v years old", name, age)
 	fmt.Print("\n")
 	fmt.Printf("name's type: %T age's type: %T", name, age)
+
+	// Sprinf
+	var message = fmt.Sprintf("my name is %v \n", name)
+	fmt.Println("The saved string is:", message)
 }
