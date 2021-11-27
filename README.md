@@ -140,6 +140,10 @@ func main() {
 	fmt.Printf("I'm %v and I'm %v years old", name, age)
 	fmt.Print("\n")
 	fmt.Printf("name's type: %T age's type: %T", name, age)
+
+	// Sprintf
+	var message = fmt.Sprintf("my name is %v \n", name)
+	fmt.Println("The saved string is:", message)
 }
 ```
 
@@ -148,3 +152,28 @@ func main() {
 - Printf() - format string based on the given formatting verb and then print.
   - `%v` - print value of the arguments
   - `%T` - print type of the arguments
+- Sprintf() - save formatted strings in variable
+
+## Arrays
+
+Arrays are used to store multiple values of the same type in a single variable.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	// define length
+	var animals = [3]string{"dog", "cat", "elephant"}
+	fmt.Println(animals, len(animals))
+
+	// undefined length
+	var foods = [...]string{"tom yum", "som tum"}
+	foods[1] = "omelette"
+	fmt.Println(foods)
+
+	prices := [4]int{10, 30, 45, 60}
+	fmt.Println(prices)
+}
+```
