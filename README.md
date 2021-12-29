@@ -519,6 +519,71 @@ func main() {
 }
 ```
 
+## Interface
+
+Interfaces are named collections of method signatures.
+
+```go
+package main
+
+import "fmt"
+
+type Animal interface {
+	Eat(food string)
+}
+
+type Panda struct {
+	Name string
+}
+
+func (p Panda) Eat(food string) {
+	fmt.Printf("%s eats %s\n", p.Name, food)
+}
+
+func (p Panda) Sleep() {
+	fmt.Printf("%s sleeps\n", p.Name)
+}
+
+func CheckAnimal(a Animal) {
+	a.Eat("bamboo")
+}
+
+func main() {
+	panda := Panda{Name: "panda"}
+
+	CheckAnimal(panda)
+}
+```
+
+## Error
+
+Error in Go is interface which means that if error is not equal to nil, it has an error.
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func ReadFile(name string) (string, error) {
+	var err error = errors.New("File not found")
+	return "", err
+}
+
+func main() {
+	data, err := ReadFile("test.txt")
+	// if it has an error
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("Read file successfully: ", data)
+}
+```
+
 ## Create Go Project
 
 1. Create project with below command
