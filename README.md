@@ -217,6 +217,12 @@ func main() {
 }
 ```
 
+```go
+// trick: convert array to slice
+grades := [4]string{"A", "B", "C", "D"}
+getSlice(grades[:])
+```
+
 ## Condition
 
 ### If-else
@@ -286,14 +292,40 @@ func main() {
 ```
 
 ```go
+// Infinite loop
+package main
+import ("fmt")
+
+func main() {
+  i := 0
+  for {
+	  fmt.Println(i)
+	  i++
+  }
+}
+```
+
+```go
 package main
 import ("fmt")
 
 func main() {
   fruits := [3]string{"apple", "orange", "banana"}
-  for idx, val := range fruits {
-     fmt.Printf("%v\t%v\n", idx, val)
+  for index, val := range fruits {
+     fmt.Printf("%v\t%v\n", index, val)
   }
+
+  // don't use index
+  fruits := [3]string{"apple", "orange", "banana"}
+  for _, val := range fruits {
+     fmt.Printf("%v\t%v\n", val)
+  }
+
+  // use only index
+   fruits := [3]string{"apple", "orange", "banana"}
+   for index := range fruits {
+     fmt.Printf("%v\t%v\n", index)
+   }
 }
 ```
 
@@ -320,7 +352,7 @@ func getAnimal(name, area string, age int) string {
 	return animal
 }
 
-// reduce form
+// shorthand
 var add = func(a int, b int) int { return a + b}
 ```
 
@@ -348,6 +380,9 @@ You can make your function be public by starting function name with uppercase.
 
 A struct is used to create a collection of members of different data types, into a single variable.
 
+- Struct name and each member start with uppercase - public
+- Struct name and each member start with lowercase - private
+
 ```go
 package main
 
@@ -374,6 +409,13 @@ func main() {
 	mint.job = "Business Analyst"
 	mint.salary = 27000
 
+	mira := Person{
+		name: "Mira",
+		age: 25,
+		job: "Frontend Developer",
+		salary: 30000,
+	}
+
 	fmt.Println("Name: ", carlos.name)
 	fmt.Println("Age: ", carlos.age)
 	fmt.Println("Job: ", carlos.job)
@@ -383,6 +425,29 @@ func main() {
 	fmt.Println("Age: ", mint.age)
 	fmt.Println("Job: ", mint.job)
 	fmt.Println("Salary: ", mint.salary)
+
+	fmt.Println("Name: ", mira.name)
+}
+```
+
+## Method
+
+Struct can has method inside it.
+
+```go
+type Person struct {
+  name string
+  age int
+  job string
+  salary int
+}
+
+func (p Person) getPersonInfo() {
+  fmt.Printf("name: %s, age: %d, job: %s, salary: %d\n", p.name, p.age, p.job, p.salary)
+}
+
+func main() {
+  mira.getPersonInfo()
 }
 ```
 
@@ -401,8 +466,57 @@ func main() {
 
   fmt.Printf("score\t%v\n", score)
   fmt.Printf("food\t%v\n", food)
+
+  // change a value
+  food["Tom Yum"] = 60
+
+  // insert a new value
+  food["Brownie"] = 30
+
+  // delete a value
+  delete(food, "Omelette")
+
+  // check whether the value exists in the map or not
+  value, isExisted := food["Tuna Steak"]
+  // isExisted is false if "Tuna Steak" doesn't exist
+  // In case of "Tuna Steak" equals to "" or empty string
+  // isExisted will return true because it exists
+
+  // not allocate memory for map (map is nil)
+  var m map[string]string
+
+  // allocate memory for map
+  var m map[string]string = map[string]string{}
+
+  // or
+  m := map[string]string{}
+
+  // or
+  m := make(map[string]string)
 }
 
+```
+
+## Pointer
+
+Pointer store variable address where it is stored in RAM.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	animal := "panda"
+	fmt.Println(animal)
+
+	var addr *string = &animal
+	fmt.Printf("%T\n", addr)
+
+	// change value
+	*addr = "tiger"
+	fmt.Printf("%s\n", *addr)
+}
 ```
 
 ## Create Go Project
