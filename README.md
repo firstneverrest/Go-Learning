@@ -342,6 +342,8 @@ When you would like to separate function into multiple files, you could not refe
 go run *.go
 ```
 
+You can make your function be public by starting function name with uppercase.
+
 ## Struct
 
 A struct is used to create a collection of members of different data types, into a single variable.
@@ -402,3 +404,14 @@ func main() {
 }
 
 ```
+
+## Create Go Project
+
+1. Create project with below command
+
+```
+go mod init <PROJECT_NAME>
+```
+
+1. Go created file called `go.mod` for you. This file store dependencies and meta data like package.json in JavaScript framework. Conventional module name is `github.com/<USERNAME>/<PACKAGE_PATH>` to evade duplicate package name.
+2. when you create multiple packages and would like to use function in that separate package, You need to import with `import <ROOT_DIRECTORY>/<PACKAGE_NAME>`. `<ROOT_DIRECTORY>` depends on module name that defined in go.mod file.
