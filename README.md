@@ -29,20 +29,12 @@ func main() {
 6. Run Go code
 
 ```
-go run .\main.go
-
-or
-
 go run main.go
 ```
 
 7. If you want to save the program as an executable program, type as follow:
 
 ```
-go build .\main.go
-
-or
-
 go build main.go
 ```
 
@@ -166,6 +158,7 @@ func main() {
 - Printf() - format string based on the given formatting verb and then print.
   - `%v` - print value of the arguments
   - `%T` - print type of the arguments
+  - `%q` - print value of the arguments with double quote wrapping
 - Sprintf() - save formatted strings in variable
 
 ## Arrays
@@ -224,6 +217,86 @@ func main() {
 }
 ```
 
+## Condition
+
+### If-else
+
+```go
+package main
+import ("fmt")
+
+func main() {
+  time := 22
+  if time < 10 {
+    fmt.Println("Good morning.")
+  } else if time < 20 {
+    fmt.Println("Good day.")
+  } else {
+    fmt.Println("Good evening.")
+  }
+}
+```
+
+### Switch Case
+
+```go
+package main
+import ("fmt")
+
+func main() {
+  day := 4
+
+  switch day {
+  case 1:
+    fmt.Println("Monday")
+  case 2:
+    fmt.Println("Tuesday")
+  case 3:
+    fmt.Println("Wednesday")
+  case 4:
+    fmt.Println("Thursday")
+  case 5:
+    fmt.Println("Friday")
+  case 6:
+    fmt.Println("Saturday")
+  case 7:
+    fmt.Println("Sunday")
+  default:
+    fmt.Println("Not a weekday")
+  }
+}
+```
+
+## Loops
+
+```go
+// nested loop
+package main
+import ("fmt")
+
+func main() {
+  adj := [2]string{"big", "tasty"}
+  fruits := [3]string{"apple", "orange", "banana"}
+  for i:=0; i < len(adj); i++ {
+    for j:=0; j < len(fruits); j++ {
+      fmt.Println(adj[i],fruits[j])
+    }
+  }
+}
+```
+
+```go
+package main
+import ("fmt")
+
+func main() {
+  fruits := [3]string{"apple", "orange", "banana"}
+  for idx, val := range fruits {
+     fmt.Printf("%v\t%v\n", idx, val)
+  }
+}
+```
+
 ## Function
 
 Create function like `func main() {}`
@@ -236,6 +309,19 @@ func getAnimals() []string {
 	var animals = []string{"elephant", "weaver"}
 	return animals
 }
+```
+
+```go
+// if arguments' type are the same, you can omit declaring type.
+package main
+
+func getAnimal(name, area string, age int) string {
+	var animal = name + area;
+	return animal
+}
+
+// reduce form
+var add = func(a int, b int) int { return a + b}
 ```
 
 ```go
