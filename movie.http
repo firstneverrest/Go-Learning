@@ -1,0 +1,7 @@
+### All movies
+
+GET http://localhost:8080/movies
+
+### Filter
+
+GET http://localhost:8080/movies?filter=God
