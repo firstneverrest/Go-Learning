@@ -594,3 +594,10 @@ go mod init <PROJECT_NAME>
 
 1. Go created file called `go.mod` for you. This file store dependencies and meta data like package.json in JavaScript framework. Conventional module name is `github.com/<USERNAME>/<PACKAGE_PATH>` to evade duplicate package name.
 2. when you create multiple packages and would like to use function in that separate package, You need to import with `import <ROOT_DIRECTORY>/<PACKAGE_NAME>`. `<ROOT_DIRECTORY>` depends on module name that defined in go.mod file.
+
+## Go Resources
+
+- [Go code guideline](https://github.com/uber-go/guide/blob/master/style.md#introduction)
+- [Go codebangkok](https://github.com/codebangkok/golang)
+- [Awesome Go](https://github.com/avelino/awesome-go)
+- [Go tutorial from Net Ninja](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gC88BEo9czgyS72A3doDeM)
