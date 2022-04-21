@@ -2,6 +2,14 @@
 
 Go is an open source programming language that is fast, statically typed and compiled language. [Visit official website here](https://golang.org/). Go can be used for web development (server-side), developing network-based programs, cross-platform application, etc.
 
+## Why Go?
+
+- Go is a compiled language which is much faster than PHP, JS.
+- No worry about version because Go compiles code to a single binary file.
+- No unexpected behavior at run time because of wrong data type.
+- Go can do multi-thread or concurrency computation.
+- Go has excellent package management and testing built in.
+
 ## Installation
 
 1. [Download Go here](https://golang.org/doc/install).
