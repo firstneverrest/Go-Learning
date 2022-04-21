@@ -21,7 +21,8 @@ go version
 
 3. Install Go extension in vscode
 4. When Go extension window pop up, click Install All to make vscode ready for Go.
-5. Write some code
+5. Run command palette and type `Go: Install/Update Tools` and select all tools then click OK.
+6. Write some code
 
 ```go
 // main.go
@@ -231,6 +232,52 @@ grades := [4]string{"A", "B", "C", "D"}
 getSlice(grades[:])
 ```
 
+## Map
+
+A Map is used to store data values in key:value pairs.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  var score = map[string]string{"A": "Excellent", "B": "Good", "C": "Normal", "D": "Bad"}
+  food := map[string]int{"Tom Yum": 50, "Omelette": 30, "Hotdog": 30,}
+
+  fmt.Printf("score\t%v\n", score)
+  fmt.Printf("food\t%v\n", food)
+
+  // change a value
+  food["Tom Yum"] = 60
+
+  // insert a new value
+  food["Brownie"] = 30
+
+  // delete a value
+  delete(food, "Omelette")
+
+  // check whether the value exists in the map or not
+  value, isExisted := food["Tuna Steak"]
+  // isExisted is false if "Tuna Steak" doesn't exist
+  // In case of "Tuna Steak" equals to "" or empty string
+  // isExisted will return true because it exists
+
+  // not allocate memory for map (map is nil)
+  var m map[string]string
+
+  // allocate memory for map
+  var m map[string]string = map[string]string{}
+
+  // or
+  m := map[string]string{}
+
+  // or
+  m := make(map[string]string)
+}
+
+```
+
 ## Condition
 
 ### If-else
@@ -361,7 +408,7 @@ func getAnimal(name, area string, age int) string {
 }
 
 // shorthand
-var add = func(a int, b int) int { return a + b}
+var add = func(a int, b int) int { return a + b }
 ```
 
 ```go
@@ -374,6 +421,23 @@ func main() {
 	fmt.Println(getAnimals())
 }
 
+```
+
+```go
+// main.go
+package main
+
+import "fmt"
+
+func main() {
+	firstName, lastName := getName()
+	fmt.Println(firstName, lastName)
+}
+
+// return more than one variable
+func getName() (string, string) {
+	return "First", "Last"
+}
 ```
 
 When you would like to separate function into multiple files, you could not refer to function name and use it directly. It requires run all .go files that include function like below.
@@ -438,6 +502,40 @@ func main() {
 }
 ```
 
+```go
+// receiver - bind function to struct
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+type User struct {
+	Name        string
+	Age         int
+	PhoneNumber string
+	BirthDate   time.Time
+}
+
+// receiver
+func (u *User) printName() string {
+	return u.Name
+}
+
+func main() {
+	user := User{
+		Name:        "John",
+		Age:         25,
+		PhoneNumber: "123456789",
+		BirthDate:   time.Now(),
+	}
+
+	fmt.Println(user.printName())
+}
+
+```
+
 ## Method
 
 Struct can has method inside it.
@@ -459,52 +557,6 @@ func main() {
 }
 ```
 
-## Map
-
-A Map is used to store data values in key:value pairs.
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-  var score = map[string]string{"A": "Excellent", "B": "Good", "C": "Normal", "D": "Bad"}
-  food := map[string]int{"Tom Yum": 50, "Omelette": 30, "Hotdog": 30,}
-
-  fmt.Printf("score\t%v\n", score)
-  fmt.Printf("food\t%v\n", food)
-
-  // change a value
-  food["Tom Yum"] = 60
-
-  // insert a new value
-  food["Brownie"] = 30
-
-  // delete a value
-  delete(food, "Omelette")
-
-  // check whether the value exists in the map or not
-  value, isExisted := food["Tuna Steak"]
-  // isExisted is false if "Tuna Steak" doesn't exist
-  // In case of "Tuna Steak" equals to "" or empty string
-  // isExisted will return true because it exists
-
-  // not allocate memory for map (map is nil)
-  var m map[string]string
-
-  // allocate memory for map
-  var m map[string]string = map[string]string{}
-
-  // or
-  m := map[string]string{}
-
-  // or
-  m := make(map[string]string)
-}
-
-```
-
 ## Pointer
 
 Pointer store variable address where it is stored in RAM.
@@ -524,6 +576,15 @@ func main() {
 	// change value
 	*addr = "tiger"
 	fmt.Printf("%s\n", *addr)
+
+	var firstName string = "John"
+	fmt.Println("Before changing value", firstName)
+	getName(&firstName)
+	fmt.Println("After changing value", firstName)
+}
+
+func getName(s *string) {
+	*s = "Carlos"
 }
 ```
 
