@@ -370,7 +370,7 @@ func main() {
      fmt.Printf("%v\t%v\n", index, val)
   }
 
-  // don't use index
+  // don't use index (blank identifier)
   fruits := [3]string{"apple", "orange", "banana"}
   for _, val := range fruits {
      fmt.Printf("%v\t%v\n", val)
@@ -652,6 +652,61 @@ func main() {
 	fmt.Println("Read file successfully: ", data)
 }
 ```
+
+## Go Routine
+
+Go routine is used to executes asynchronously or concurrently and running with multi-thread. Therefore, it helps executing much faster.
+
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func gatherRequirement() {
+	time.Sleep(1 * time.Second)
+	fmt.Println("Gathering requirements")
+}
+
+func planning() {
+	time.Sleep(1 * time.Second)
+	fmt.Println("Planning")
+}
+
+func build() {
+	time.Sleep(1 * time.Second)
+	fmt.Println("Building")
+}
+
+func deploy() {
+	time.Sleep(1 * time.Second)
+	fmt.Println("Deploying")
+}
+
+func main() {
+	start := time.Now()
+	go gatherRequirement()
+	go planning()
+	build()
+	deploy()
+	fmt.Println("Total time taken:", time.Since(start))
+}
+
+/*
+	results:
+	Gathering requirements
+	Building
+	Planning
+	Deploying
+	Total time taken: 2.0109448s
+*/
+```
+
+## Defer
+
+defer keyword postpones the execution of a function until the end of the calling function. The defer is used for cleaning purpose like finish connecting to the database.
 
 ## Create Go Project
 
