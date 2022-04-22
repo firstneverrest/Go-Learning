@@ -653,9 +653,9 @@ func main() {
 }
 ```
 
-## Go Routine
+## Goroutine
 
-Go routine is used to executes asynchronously or concurrently and running with multi-thread. Therefore, it helps executing much faster.
+Goroutine is used to executes asynchronously or concurrently and running with multi-thread. Therefore, it helps executing much faster.
 
 ```go
 package main
@@ -702,6 +702,46 @@ func main() {
 	Deploying
 	Total time taken: 2.0109448s
 */
+```
+
+## Channel
+
+Channel is a communication mechanism that allows goroutine to exchange data when there are numerous goroutine running at the same time.
+
+```go
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"strconv"
+)
+
+func getRandomNumber(intChan chan int) {
+	random := rand.Intn(100)
+	intChan <- random
+}
+
+func getRandomString(intChan chan string) {
+	random := rand.Intn(100)
+	intChan <- strconv.Itoa(random)
+}
+
+func main() {
+	intChan := make(chan int)
+	stringChan := make(chan string)
+	defer close(stringChan)
+	defer close(intChan)
+
+	go getRandomNumber(intChan)
+	go getRandomString(stringChan)
+
+	randomNumber := <-intChan
+	randomString := <-stringChan
+	fmt.Println("randomNumber:", randomNumber)
+	fmt.Println("randomString:", randomString)
+}
+
 ```
 
 ## Defer
