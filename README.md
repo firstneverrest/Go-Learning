@@ -748,6 +748,75 @@ func main() {
 
 defer keyword postpones the execution of a function until the end of the calling function. The defer is used for cleaning purpose like finish connecting to the database.
 
+## JSON
+
+### Marshaling and Unmarshaling Data
+
+- Marshaling is converting Go object or struct into JSON
+- Unmarshaling is converting JSON to struct
+
+```go
+// convert json to struct
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Person struct {
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
+	Age       int    `json:"age"`
+}
+
+func main() {
+	myJsonString := `{"firstname":"John","lastname":"Doe","age":30}`
+	var unmarshalled Person
+	err := json.Unmarshal([]byte(myJsonString), &unmarshalled)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	fmt.Printf("unmarshalled: %v", unmarshalled)
+}
+
+```
+
+```go
+// convert struct to json
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Person struct {
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
+	Age       int    `json:"age"`
+}
+
+func main() {
+	var marshalled Person
+	marshalled.FirstName = "John"
+	marshalled.LastName = "Doe"
+	marshalled.Age = 30
+
+	var mySlice []Person
+	mySlice = append(mySlice, marshalled)
+
+	myJson, err := json.MarshalIndent(mySlice, "", "  ")
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println(string(myJson))
+}
+
+```
+
 ## Create Go Project
 
 1. Create project with below command
