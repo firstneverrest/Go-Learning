@@ -744,9 +744,90 @@ func main() {
 
 ```
 
-## Defer
+## Error Handling
 
-defer keyword postpones the execution of a function until the end of the calling function. The defer is used for cleaning purpose like finish connecting to the database.
+Go does not have an exception mechanism such as try/catch in JavaScript. Therefore, Go handles simple errors for function by returning an error object. If the error object is nil, it means no error in the function.
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func main() {
+	result, err := divide(100.0, 0)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println("Result:", result)
+	}
+}
+
+func divide(x, y float32) (float32, error) {
+	var result float32
+
+	if y == 0 {
+		return result, errors.New("Divide by zero")
+	}
+
+	result = x / y
+	return result, nil
+}
+
+```
+
+### Defer
+
+defer keyword postpones the execution of a function until the end of the calling function. The defer is used for cleaning purpose like finish connecting to the database or error handling.
+
+### Recover
+
+Recover is used to regain control of a program from panic or error. It stops the terminating sequence and resumes the normal execution.
+
+```go
+package main
+import (
+   "fmt"
+)
+func main() {
+   fmt.Println(SaveDivide(10, 0))
+   fmt.Println(SaveDivide(10, 10))
+}
+func SaveDivide(num1, num2 int) int {
+   defer func() {
+      fmt.Println(recover())
+   }()
+   quotient := num1 / num2
+   return quotient
+}
+```
+
+### Panic
+
+Panic can be used to abort a function execution.
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+	fmt.Println(SaveDivide(10, 0))
+	fmt.Println(SaveDivide(10, 5))
+}
+func SaveDivide(num1, num2 int) int {
+	if num2 == 0 {
+		panic("Divide by zero")
+	}
+	quotient := num1 / num2
+	return quotient
+}
+
+```
 
 ## JSON
 
@@ -817,11 +898,94 @@ func main() {
 
 ```
 
+## Testing
+
+## Unit Testing
+
+You can create unit test with _testing_ package from Go. The error message should be lowercase.
+
+```go
+package main
+
+import "testing"
+
+func TestGoodDivide(t *testing.T) {
+	_, err := divide(100.0, 10)
+	if err != nil {
+		t.Error("should not have: divide by zero")
+	}
+}
+
+func TestBadDivide(t *testing.T) {
+	_, err := divide(100.0, 0)
+	if err == nil {
+		t.Error("should have: divide by zero")
+	}
+}
+```
+
+```go
+package main
+
+import (
+	"testing"
+)
+
+// table tests
+var tests = []struct {
+	name     string
+	dividend float32
+	divisor  float32
+	expected float32
+	isError  bool
+}{
+	{"valid-data", 100.0, 10.0, 10.0, false},
+	{"invalid-data", 100.0, 0.0, 0.0, true},
+	{"expect-5", 100.0, 20.0, 5.0, false},
+}
+
+func TestDivision(t *testing.T) {
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			result, err := divide(test.dividend, test.divisor)
+			if test.isError {
+				if err == nil {
+					t.Error("expected an error but got nil")
+				}
+			} else {
+				if err != nil {
+					t.Error("expected no error but got", err.Error())
+				}
+			}
+
+			if result != test.expected {
+				t.Errorf("expected %f, but got %f", test.expected, result)
+			}
+		})
+	}
+}
+
+```
+
+```bash
+# run all tests with no description
+go test
+
+# run all tests with description
+go test -v
+
+# show test coverage percentage
+go test -cover
+
+# show where was already test and was not test on HTML page
+go test -coverprofile=coverage.out && go tool cover -html=coverage.out
+```
+
 ## Create Go Project
 
 1. Create project with below command
 
-```
+```bash
 go mod init <PROJECT_NAME>
 ```
 
